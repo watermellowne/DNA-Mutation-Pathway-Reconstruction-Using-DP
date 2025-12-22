@@ -5,7 +5,7 @@ from visualization import print_dp_table
 
 def main():
     S = "ACGTAC"
-    T = "AGTTC"
+    T = "AGTTC" 
 
     ins_cost = 1
     del_cost = 1
