@@ -20,11 +20,8 @@ def read_dna_file(filename):
         return None
 
 def main():
-   
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
-
-
    
     base_dir = os.path.dirname(script_dir)
     file_healthy = os.path.join(base_dir, "Sequences", "kras_healthy.txt")
@@ -32,40 +29,39 @@ def main():
     print(f"Reading sequences from files...")
 
     # Read sequences from files
-    S = read_dna_file(file_healthy)
-    T = read_dna_file(file_mutated)
+    healthy_DNA = read_dna_file(file_healthy)
+    mutated_DNA = read_dna_file(file_mutated)
 
     # Check if files were read successfully
-    if S is None or T is None:
+    if healthy_DNA is None or mutated_DNA is None:
         print("Aborting due to file error.")
         return
 
     # Check if files are empty
-    if not S or not T:
+    if not healthy_DNA or not mutated_DNA:
         print("Error: One or both of the DNA files are empty.")
         return
 
-    print(f"Healthy Sequence Length: {len(S)}")
-    print(f"Mutated Sequence Length: {len(T)}")
+    print(f"Healthy Sequence Length: {len(healthy_DNA)}")
+    print(f"Mutated Sequence Length: {len(mutated_DNA)}")
 
     ins_cost = 2
     del_cost = 2
     sub_cost = 1
 
     
-    dp, choice = compute_dp_table(S, T, ins_cost, del_cost, sub_cost)
+    dp, choice = compute_dp_table(healthy_DNA, mutated_DNA, ins_cost, del_cost, sub_cost)
     
     print_dp_table(dp)  
 
-    steps = reconstruct_path(choice, S, T)
+    steps = reconstruct_path(choice, healthy_DNA, mutated_DNA)
 
-    
     # if len(S) < 20:
     #     print_dp_table(dp)
     # else:
     #     print("\n(DP Table is too large to display)")
 
-    print("\nMinimum Mutation Cost:", dp[len(S)][len(T)])
+    print("\nMinimum Mutation Cost:", dp[len(healthy_DNA)][len(mutated_DNA)])
 
     print("\nMutation Steps:")
     for step in steps:
