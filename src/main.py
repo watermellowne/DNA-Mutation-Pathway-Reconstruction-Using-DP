@@ -1,12 +1,9 @@
 from dp_model import compute_dp_table
 from backtracking import reconstruct_path
-from visualization import print_dp_table
+from visualization import print_dp_table, print_choice_table
 import os
 
 def read_dna_file(filename):
-   
-
-
     # Reads a DNA sequence from a text file.
     sequence = ""
     try:
@@ -24,23 +21,13 @@ def read_dna_file(filename):
         return None
 
 def main():
-<<<<<<< HEAD
-   
-     # get the directory of file
-=======
-
->>>>>>> 98f0ca00dabd45ea7cf0b1788eb8fc2026480edd
+    # Get the directory of the file
     script_dir = os.path.dirname(os.path.abspath(__file__))
    
     base_dir = os.path.dirname(script_dir)
-<<<<<<< HEAD
-    #file paths for sequences
-    file_healthy = os.path.join(base_dir, "Sequences", "kras_healthy.txt")
-    file_mutated = os.path.join(base_dir, "Sequences", "kras_mutated.txt")
-=======
+    # Define file paths for sequences
     file_healthy = os.path.join(base_dir, "Sequences", "Small_Example_healthy.txt")
     file_mutated = os.path.join(base_dir, "Sequences", "Small_Example_mutated.txt")
->>>>>>> 98f0ca00dabd45ea7cf0b1788eb8fc2026480edd
     print(f"Reading sequences from files...")
 
     # Read sequences from files
@@ -56,48 +43,26 @@ def main():
     if not healthy_DNA or not mutated_DNA:
         print("Error: One or both of the DNA files are empty.")
         return
-<<<<<<< HEAD
     # Display sequence lengths
-    print(f"Healthy Sequence Length: {len(S)}")
-    print(f"Mutated Sequence Length: {len(T)}")
-    # Define mutation costs
-=======
-
     print(f"Healthy Sequence Length: {len(healthy_DNA)}")
     print(f"Mutated Sequence Length: {len(mutated_DNA)}")
-
->>>>>>> 98f0ca00dabd45ea7cf0b1788eb8fc2026480edd
+    # Define mutation costs
     ins_cost = 2
     del_cost = 2
     sub_cost = 1
 
     
-<<<<<<< HEAD
-    dp, choice = compute_dp_table(S, T, ins_cost, del_cost, sub_cost)
-    # Display DP table 
-    print_dp_table(dp)  
-    # Reconstruct mutation steps using backtracking
-    steps = reconstruct_path(choice, S, T)
-
-    
-    
-    # Display final mutation cost
-    print("\nMinimum Mutation Cost:", dp[len(S)][len(T)])
-=======
     dp, choice = compute_dp_table(mutated_DNA, healthy_DNA, ins_cost, del_cost, sub_cost)
-    
+    # Display DP table
     print_dp_table(dp)  
-
+    # Display Choice table 
+    print_choice_table(choice) 
+    # Reconstruct mutation steps using backtracking
     steps = reconstruct_path(choice, mutated_DNA, healthy_DNA)
 
-    # if len(S) < 20:
-    #     print_dp_table(dp)
-    # else:
-    #     print("\n(DP Table is too large to display)")
-
+    # Display final mutation cost
     print("\nMinimum Mutation Cost:", dp[len(mutated_DNA)][len(healthy_DNA)])
->>>>>>> 98f0ca00dabd45ea7cf0b1788eb8fc2026480edd
-
+    # Display mutation steps
     print("\nMutation Steps:")
     for step in steps:
         print("-", step)
