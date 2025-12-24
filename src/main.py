@@ -24,8 +24,8 @@ def main():
     script_dir = os.path.dirname(os.path.abspath(__file__))
    
     base_dir = os.path.dirname(script_dir)
-    file_healthy = os.path.join(base_dir, "Sequences", "kras_healthy.txt")
-    file_mutated = os.path.join(base_dir, "Sequences", "kras_mutated.txt")
+    file_healthy = os.path.join(base_dir, "Sequences", "Small_Example_healthy.txt")
+    file_mutated = os.path.join(base_dir, "Sequences", "Small_Example_mutated.txt")
     print(f"Reading sequences from files...")
 
     # Read sequences from files
@@ -50,18 +50,18 @@ def main():
     sub_cost = 1
 
     
-    dp, choice = compute_dp_table(healthy_DNA, mutated_DNA, ins_cost, del_cost, sub_cost)
+    dp, choice = compute_dp_table(mutated_DNA, healthy_DNA, ins_cost, del_cost, sub_cost)
     
     print_dp_table(dp)  
 
-    steps = reconstruct_path(choice, healthy_DNA, mutated_DNA)
+    steps = reconstruct_path(choice, mutated_DNA, healthy_DNA)
 
     # if len(S) < 20:
     #     print_dp_table(dp)
     # else:
     #     print("\n(DP Table is too large to display)")
 
-    print("\nMinimum Mutation Cost:", dp[len(healthy_DNA)][len(mutated_DNA)])
+    print("\nMinimum Mutation Cost:", dp[len(mutated_DNA)][len(healthy_DNA)])
 
     print("\nMutation Steps:")
     for step in steps:
