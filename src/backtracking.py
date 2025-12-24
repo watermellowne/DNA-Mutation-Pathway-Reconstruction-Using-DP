@@ -1,9 +1,4 @@
 def reconstruct_path(choice, healthy_DNA, mutated_DNA, verbose=True, visual_callback=None):
-    """
-    Reconstructs the mutation steps using backtracking
-    and prints each step during traversal.
-    """
-
     i, j = len(healthy_DNA), len(mutated_DNA)
     steps = []           #list of operations in chronological order
 
