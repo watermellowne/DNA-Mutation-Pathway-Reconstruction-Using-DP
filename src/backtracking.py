@@ -1,10 +1,10 @@
-def reconstruct_path(choice, S, T, verbose=True, visual_callback=None):
+def reconstruct_path(choice, healthy_DNA, mutated_DNA, verbose=True, visual_callback=None):
     """
     Reconstructs the mutation steps using backtracking
     and prints each step during traversal.
     """
 
-    i, j = len(S), len(T)
+    i, j = len(healthy_DNA), len(mutated_DNA)
     steps = []
 
     if verbose:
@@ -19,36 +19,36 @@ def reconstruct_path(choice, S, T, verbose=True, visual_callback=None):
 
         if action == "MATCH":
             if verbose:
-                print(f"At dp[{i}][{j}]: MATCH '{S[i-1]}' → move to dp[{i-1}][{j-1}]")
+                print(f"At dp[{i}][{j}]: MATCH '{healthy_DNA[i-1]}' → move to dp[{i-1}][{j-1}]")
             i -= 1
             j -= 1
 
         elif action == "SUBSTITUTE":
             if verbose:
                 print(
-                    f"At dp[{i}][{j}]: SUBSTITUTE '{S[i-1]}' → '{T[j-1]}' "
+                    f"At dp[{i}][{j}]: SUBSTITUTE '{healthy_DNA[i-1]}' → '{mutated_DNA[j-1]}' "
                     f"→ move to dp[{i-1}][{j-1}]"
                 )
-            steps.append(f"Substitute {S[i-1]} → {T[j-1]}")
+            steps.append(f"Substitute {healthy_DNA[i-1]} → {mutated_DNA[j-1]}")
             i -= 1
             j -= 1
 
         elif action == "DELETE":
             if verbose:
                 print(
-                    f"At dp[{i}][{j}]: DELETE '{S[i-1]}' "
+                    f"At dp[{i}][{j}]: DELETE '{healthy_DNA[i-1]}' "
                     f"→ move to dp[{i-1}][{j}]"
                 )
-            steps.append(f"Delete {S[i-1]}")
+            steps.append(f"Delete {healthy_DNA[i-1]}")
             i -= 1
 
         elif action == "INSERT":
             if verbose:
                 print(
-                    f"At dp[{i}][{j}]: INSERT '{T[j-1]}' "
+                    f"At dp[{i}][{j}]: INSERT '{mutated_DNA[j-1]}' "
                     f"→ move to dp[{i}][{j-1}]"
                 )
-            steps.append(f"Insert {T[j-1]}")
+            steps.append(f"Insert {mutated_DNA[j-1]}")
             j -= 1
 
         else:
